@@ -56,7 +56,6 @@ const main = async (x: number, y: number) => {
             console.log(connectionData);
             packetsWanderingTime.push(timeDiff);
             logStream.write(connectionData);
-            await delay(y);
         } catch (error: any) {
             packetsLost++;
             if (error.cause) {
@@ -71,6 +70,7 @@ const main = async (x: number, y: number) => {
         } finally {
             packetsSent++;
         }
+        await delay(y);
     }
     const extraData =
         'Pakiety wysłane: ' +
