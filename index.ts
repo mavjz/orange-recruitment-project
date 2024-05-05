@@ -15,14 +15,21 @@ const main = async (x: number) => {
             console.error('HTTP status no. ' + res.status);
         }
 
+        if (!res.headers['content-type'].includes('json')) {
+            console.error('Content-Type is ' + res.headers['content-type']);
+        }
+
         const timeEnd = new Date();
         const timeDiff = (timeEnd.getTime() - timeStart.getTime()) / 1000;
+
         const connectionData =
             moment(timeStart).format('DD.MM.YYYY HH:mm:ss') +
             '; ' +
             res.status +
-            ' ' +
+            '; ' +
             res.statusText +
+            '; ' +
+            res.headers['content-type'] +
             '; ' +
             timeDiff +
             's;\r\n';
