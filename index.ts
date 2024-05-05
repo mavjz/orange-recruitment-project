@@ -1,5 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
+import { resSchema } from './schema';
 
 const main = async (x: number) => {
     for (let i = x; i > 0; i--) {
@@ -18,6 +19,10 @@ const main = async (x: number) => {
         if (!res.headers['content-type'].includes('json')) {
             console.error('Content-Type is ' + res.headers['content-type']);
         }
+
+        await resSchema
+            .validate(res.data, { abortEarly: false })
+            .catch((error) => console.error(error.name + ': ' + error.errors));
 
         const timeEnd = new Date();
         const timeDiff = (timeEnd.getTime() - timeStart.getTime()) / 1000;
