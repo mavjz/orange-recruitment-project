@@ -1,8 +1,9 @@
 import axios from 'axios';
 import moment from 'moment';
 import { resSchema } from './schema';
+import { delay } from './delay';
 
-const main = async (x: number) => {
+const main = async (x: number, y: number) => {
     for (let i = x; i > 0; i--) {
         let schemaValidation = '';
         const timeStart = new Date();
@@ -45,7 +46,8 @@ const main = async (x: number) => {
             schemaValidation +
             ';\r\n';
         console.log(connectionData);
+        await delay(y);
     }
 };
 
-main(10);
+main(10, 5);
