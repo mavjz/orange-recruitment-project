@@ -4,6 +4,7 @@ import { resSchema } from './schema';
 
 const main = async (x: number) => {
     for (let i = x; i > 0; i--) {
+        let schemaValidation = '';
         const timeStart = new Date();
 
         const res = await axios.get('https://tvgo.orange.pl/gpapi/status', {
@@ -22,11 +23,14 @@ const main = async (x: number) => {
 
         await resSchema
             .validate(res.data, { abortEarly: false })
-            .catch((error) => console.error(error.name + ': ' + error.errors));
+            .then(() => (schemaValidation = 'JSON zgodny ze schematem'))
+            .catch((error) => {
+                schemaValidation = error.name + ': ' + error.errors;
+                console.error(schemaValidation);
+            });
 
         const timeEnd = new Date();
         const timeDiff = (timeEnd.getTime() - timeStart.getTime()) / 1000;
-
         const connectionData =
             moment(timeStart).format('DD.MM.YYYY HH:mm:ss') +
             '; ' +
@@ -37,7 +41,9 @@ const main = async (x: number) => {
             res.headers['content-type'] +
             '; ' +
             timeDiff +
-            's;\r\n';
+            's; ' +
+            schemaValidation +
+            ';\r\n';
         console.log(connectionData);
     }
 };
