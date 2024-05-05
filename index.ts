@@ -3,6 +3,7 @@ import moment from 'moment';
 import { resSchema } from './schema';
 import { delay } from './delay';
 import * as fs from 'fs';
+import { mean } from './mean';
 
 const main = async (x: number, y: number) => {
     let packetsLost = 0;
@@ -81,7 +82,12 @@ const main = async (x: number, y: number) => {
         packetsLost +
         (packetsWanderingTime.length > 0 ? Math.max(...packetsWanderingTime) : 'N/A') +
         '; Minimalny czas błądzenia pakietów: ' +
-        (packetsWanderingTime.length > 0 ? Math.min(...packetsWanderingTime) : 'N/A');
+        (packetsWanderingTime.length > 0 ? Math.min(...packetsWanderingTime) : 'N/A') +
+        '; Średni czas błądzenia pakietów: ' +
+        (packetsWanderingTime.length > 0
+            ? Math.round(mean(packetsWanderingTime) * 1000) / 1000
+            : 'N/A') +
+        ';';
 
     logStream.write(extraData);
     console.log(extraData);
