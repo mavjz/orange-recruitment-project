@@ -8,6 +8,7 @@ const main = async (x: number, y: number) => {
     let packetsLost = 0;
     let packetsSent = 0;
     let packetsReceived = 0;
+    let packetsWanderingTime: number[] = [];
     const logStream = fs.createWriteStream('log.txt', { flags: 'w' });
 
     for (let i = x; i > 0; i--) {
@@ -53,8 +54,9 @@ const main = async (x: number, y: number) => {
                 schemaValidation +
                 ';\r\n';
             console.log(connectionData);
-            await delay(y);
+            packetsWanderingTime.push(timeDiff);
             logStream.write(connectionData);
+            await delay(y);
         } catch (error: any) {
             packetsLost++;
             if (error.cause) {
@@ -76,7 +78,10 @@ const main = async (x: number, y: number) => {
         '; Pakiety odebrane: ' +
         packetsReceived +
         '; Pakietsy stracone: ' +
-        packetsLost;
+        packetsLost +
+        (packetsWanderingTime.length > 0 ? Math.max(...packetsWanderingTime) : 'N/A') +
+        '; Minimalny czas błądzenia pakietów: ' +
+        (packetsWanderingTime.length > 0 ? Math.min(...packetsWanderingTime) : 'N/A');
 
     logStream.write(extraData);
     console.log(extraData);
