@@ -26,7 +26,7 @@ const main = async (x: number) => {
             moment(timeStart).format('DD.MM.YYYY HH:mm:ss') +
             '; ' +
             res.status +
-            '; ' +
+            ' ' +
             res.statusText +
             '; ' +
             res.headers['content-type'] +
