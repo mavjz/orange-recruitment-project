@@ -78,8 +78,9 @@ export const main = async ({ x, y }: { x: number; y: number }) => {
         packetsSent +
         '; Pakiety odebrane: ' +
         packetsReceived +
-        '; Pakietsy stracone: ' +
+        '; Pakiety stracone: ' +
         packetsLost +
+        '; Maksymalny czas błądzenia pakietów: ' +
         (packetsWanderingTime.length > 0 ? Math.max(...packetsWanderingTime) : 'N/A') +
         '; Minimalny czas błądzenia pakietów: ' +
         (packetsWanderingTime.length > 0 ? Math.min(...packetsWanderingTime) : 'N/A') +
