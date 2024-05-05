@@ -2,8 +2,10 @@ import axios from 'axios';
 import moment from 'moment';
 import { resSchema } from './schema';
 import { delay } from './delay';
+import * as fs from 'fs';
 
 const main = async (x: number, y: number) => {
+    const logStream = fs.createWriteStream('log.txt', { flags: 'w' });
     for (let i = x; i > 0; i--) {
         let schemaValidation = '';
         const timeStart = new Date();
@@ -47,7 +49,9 @@ const main = async (x: number, y: number) => {
             ';\r\n';
         console.log(connectionData);
         await delay(y);
+        logStream.write(connectionData);
     }
+    logStream.end();
 };
 
 main(10, 5);
