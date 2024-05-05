@@ -5,7 +5,7 @@ import { delay } from './delay';
 import * as fs from 'fs';
 import { mean } from './mean';
 
-export const main = async (x: number, y: number) => {
+export const main = async ({ x, y }: { x: number; y: number }) => {
     let packetsLost = 0;
     let packetsSent = 0;
     let packetsReceived = 0;

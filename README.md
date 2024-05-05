@@ -14,8 +14,8 @@ This project involves conducting HTTP GET requests to analyze various attributes
 
 -   **Customization Options**:
 
-    -   **Request Iterations**: Users can specify how many times the GET request should be executed.
-    -   **Request Interval**: Users can set the time gap between consecutive requests.
+    -   **Request Iterations**: Users can specify how many times the GET request should be executed. (Default 10)
+    -   **Request Interval**: Users can set the time gap between consecutive requests. (Default 5)
 
 -   **Additional Analytics**:
     -   **Minimum Response Time**: The shortest duration observed among the request responses.
@@ -35,4 +35,11 @@ To run this project, install it locally using npm:
 ```
 $ npm install
 $ npm start
+```
+
+If you'd like to use personalised options use:
+
+```
+$ npm install
+$ npx ts-node index.ts --x=[your_number_of_iteration] --y=[your_interval_time_in_seconds]
 ```
